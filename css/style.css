@@ -1,0 +1,29 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+#grid {
+    margin: 0 auto;
+    width: 30rem;
+    height: 30rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.cell {
+    border: 1px dashed white;
+    background-color: green;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.clicked {
+    background-color: lightblue;
+    cursor: not-allowed;
+}
