@@ -21,3 +21,38 @@ BONUS:
 // FUNZIONE RANDOMIZE
 const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
+// RECUPERO ELEMENTI
+const select = document.getElementById("select");
+const grid = document.getElementById("grid");
+const button = document.getElementById("generate");
+
+function start() {
+    // Cambio il tasto del bottone e lo chiamo ricomincia
+    button.innerText = 'Ricomincia'
+
+    grid.innerHTML = '';
+
+    
+    let attempts = 0;
+    const totalBombs = 16;
+
+    let cols;
+
+    switch (select.value) {
+        case "100":
+            cols = 10;
+            break;
+        case "49":
+            cols = 7;
+            break;
+        default:
+            cols = 9;
+            break;
+    }
+
+    const totalCells = cols * cols;
+
+    const maxAttempts = totalCells - totalBombs;
+};
+
+button.addEventListener('click', start);
