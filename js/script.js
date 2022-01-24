@@ -107,6 +107,39 @@ function start() {
             };
         };
     };
+
+    // FINE PARTITA
+    const gameOver = (bombs, attempts, hasLost) => {
+        const allCells = grid.querySelectorAll('.cell');
+
+        for (let i = 0; i < allCells.length; i++) {
+            allCells[i].removeEventListener('click', onCellClick);
+        };
+
+        showBoms(bombs);
+        const message = document.createElement('h2');
+        message.className = 'message';
+        const messageText = hasLost ? `Hai perso, i tuoi punti sono ${attempts}` : `Hai vinto, complimenti!`
+        message.innerText = messageText;
+        grid.appendChild(message);
+    };
+
+    const showBoms = (bombs) => {
+        const cells = document.querySelectorAll('.cell');
+        for (let i = 0; i < totalCells; i++) {
+            const cell = cells[i];
+            const disabledCell = disableCell(cell);
+            const cellNumber = parseInt(disabledCell.innerText);
+            if (bombs.includes(cellNumber)) {
+                disabledCell.classList.add('bomb');
+            };
+        };  
+    };
+
+    const bombs = generateBombs(totalBombs, totalCells)
+    console.log(bombs);
+
+    generateGrid(totalCells, cols, bombs);
 };
 
 button.addEventListener('click', start);
