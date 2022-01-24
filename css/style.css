@@ -27,3 +27,8 @@
     background-color: lightblue;
     cursor: not-allowed;
 }
+
+.bomb {
+    background-color: red;
+    cursor: not-allowed;
+}
