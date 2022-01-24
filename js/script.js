@@ -53,6 +53,37 @@ function start() {
     const totalCells = cols * cols;
 
     const maxAttempts = totalCells - totalBombs;
+    
+    // GENERO BOMBE
+    const generateBombs = (totalBombs, totalNumber) => {
+        const bombs = [];
+        while (bombs.length < totalBombs) {
+            const randNumber = getRandomNumber(1, totalNumber);
+            if (!bombs.includes(randNumber)) {
+                bombs.push(randNumber);
+            };
+        };
+        return bombs;
+        };
+    
+        // GENERO GRIGLIA
+        const generateGrid = (cellsNumber, cellsPerRow, bombs) => {
+            for (let i = 1; i <= cellsNumber; i++) {
+                const cell = createCell(i, cellsPerRow);
+                cell.addEventListener('click', (event) => onCellClick(event.target, bombs, i));
+                grid.appendChild(cell);
+            };
+        };
+    
+        // CREO LA CELLA
+        function createCell(cellNumber, cellsPerRow) {
+            const cell = document.createElement("div");
+            cell.className = "cell";
+            cell.innerText = cellNumber;
+            cell.style.height = `calc(100% / ${cellsPerRow})`;
+            cell.style.width = `calc(100% / ${cellsPerRow})`;
+            return cell;
+        };
 };
 
 button.addEventListener('click', start);
