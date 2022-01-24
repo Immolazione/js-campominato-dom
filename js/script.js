@@ -19,15 +19,17 @@ function play() {
     const level = parseInt(document.getElementById('number-of-cells').value);
     console.log(level);
     let col = Math.sqrt(level);
+    let cell;
     let points = 0;
     console.log(col);
 
     function generateCell (cellInRow, i) {
-        const cell = document.createElement('div');
+        cell = document.createElement('div');
         cell.classList.add('cell');
         cell.style.width = `calc(100% / ${cellInRow})`;
         cell.style.height = `calc(100% / ${cellInRow})`;
         const number = i + 1;
+        cell.id = number;
         cell.innerText = number;
         return cell;
     };
@@ -41,22 +43,29 @@ function play() {
             const randomNumber = getrandomNumber(1, numberOfElement);
             if (!bombs.includes(randomNumber)) {
                 bombs.push(randomNumber);
-            }
-        }
-        return bombs
-    }
+            };
+        };
+        return bombs;
+    };
     const bombs = generateBombs(TOTAL_BOMBS, level);
+    console.log(bombs);
+    
 
-    const onCellClick = (cell) => {
-        cell.classList.add('clicked');
-    }
 
     for (let i = 0; i < level; i++) {
         const cell = generateCell(col, i);
         cell.addEventListener ('click', (e) => onCellClick(e.target, bombs, i));
         grid.appendChild(cell);
         console.log(i);
-    }
+        const onCellClick = (cell) => {
+            if (bombs.includes(i)) {
+                cell.classList.add('bomb');
+            } else {
+                cell.classList.add('clicked');
+            };
+        };
+      
+    };
 };
 
 
