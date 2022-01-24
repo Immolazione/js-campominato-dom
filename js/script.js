@@ -53,7 +53,16 @@ function start() {
     const totalCells = cols * cols;
 
     const maxAttempts = totalCells - totalBombs;
-    
+
+    const disableCell = cell => {
+        const clone = cell.cloneNode();
+        clone.innerText = cell.innerText;
+        clone.classList.add('disabled');
+        cell.parentNode.replaceChild(clone, cell);
+        return clone;
+    };
+
+
     // GENERO BOMBE
     const generateBombs = (totalBombs, totalNumber) => {
         const bombs = [];
@@ -66,24 +75,38 @@ function start() {
         return bombs;
         };
     
-        // GENERO GRIGLIA
-        const generateGrid = (cellsNumber, cellsPerRow, bombs) => {
-            for (let i = 1; i <= cellsNumber; i++) {
-                const cell = createCell(i, cellsPerRow);
-                cell.addEventListener('click', (event) => onCellClick(event.target, bombs, i));
-                grid.appendChild(cell);
+    // GENERO GRIGLIA
+    const generateGrid = (cellsNumber, cellsPerRow, bombs) => {
+        for (let i = 1; i <= cellsNumber; i++) {
+            const cell = createCell(i, cellsPerRow);
+            cell.addEventListener('click', (event) => onCellClick(event.target, bombs, i));
+            grid.appendChild(cell);
+        };
+    };
+    
+    // CREO LA CELLA
+    function createCell(cellNumber, cellsPerRow) {
+        const cell = document.createElement("div");
+        cell.className = "cell";
+        cell.innerText = cellNumber;
+        cell.style.height = `calc(100% / ${cellsPerRow})`;
+        cell.style.width = `calc(100% / ${cellsPerRow})`;
+        return cell;
+    };
+
+    function onCellClick(clickedCell, bombs, number) {
+        const disabledCell = disableCell(clickedCell);
+    
+        if (bombs.includes(number)) {
+            gameOver(bombs, attempts, true);
+        } else {
+            disabledCell.classList.add("safe")
+            attempts++;
+            if (attempts === maxAttempts) {
+                gameOver(bombs, attempts, false);
             };
         };
-    
-        // CREO LA CELLA
-        function createCell(cellNumber, cellsPerRow) {
-            const cell = document.createElement("div");
-            cell.className = "cell";
-            cell.innerText = cellNumber;
-            cell.style.height = `calc(100% / ${cellsPerRow})`;
-            cell.style.width = `calc(100% / ${cellsPerRow})`;
-            return cell;
-        };
+    };
 };
 
 button.addEventListener('click', start);
