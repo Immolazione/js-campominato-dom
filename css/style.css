@@ -23,8 +23,8 @@
     cursor: pointer;
 }
 
-.clicked {
-    background-color: lightblue;
+.safe {
+    background-color: blue;
     cursor: not-allowed;
 }
 
@@ -32,3 +32,7 @@
     background-color: red;
     cursor: not-allowed;
 }
+
+.disabled {
+    cursor: not-allowed;
+  }
